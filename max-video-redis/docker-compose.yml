@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: [
+      "redis-server",
+      "--appendonly", "yes",
+      "--save", "60", "1000",
+      "--requirepass", "${REDIS_PASSWORD}"
+    ]
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a $REDIS_PASSWORD ping | grep PONG || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    depends_on:
+      - redis
+    ports:
+      - "5540:5540"
+    environment:
+      - RI_APP_PORT=5540
+    volumes:
+      - redisinsight_data:/data
+
+volumes:
+  redis_data:
+  redisinsight_data:
