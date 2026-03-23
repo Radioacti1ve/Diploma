@@ -88,9 +88,13 @@ services:
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     ports:
-      - "3000:3000"
-    # volumes: []
-    command: npm run start:dev
+      - "4200:4200"
+    command: >
+      sh -c "
+        npm run db:reset &&
+        npm run seed:run &&
+        npm run start:dev
+      "
 
 volumes:
   pg_data:
