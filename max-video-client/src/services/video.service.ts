@@ -1,11 +1,13 @@
-import axios from 'axios'
+import { axiosClassic } from '@/api/axios'
 
 import type { IExploreVideosResponse, IVideo } from '@/types/video.types'
 
 class VideoService {
+	private _VIDEOS = '/videos'
+
 	async getAll(searchTerm?: string | null) {
-		const response = await axios.get<IExploreVideosResponse>(
-			'http://127.0.0.1:4200/api/videos',
+		const response = await axiosClassic.get<IExploreVideosResponse>(
+			this._VIDEOS,
 			searchTerm
 				? {
 						params: {
@@ -14,18 +16,20 @@ class VideoService {
 					}
 				: {}
 		)
-
 		return response.data
 	}
 
+	getVideoGames() {
+		return axiosClassic.get<IVideo[]>(`${this._VIDEOS}/games`)
+	}
+
 	getTrendingVideos() {
-		return axios.get<IVideo[]>('http://127.0.0.1:4200/api/videos/trending')
+		return axiosClassic.get<IVideo[]>(`${this._VIDEOS}/trending`)
 	}
 
 	async getExploreVideos() {
-		const response = await axios.get<IExploreVideosResponse>(
-			'http://127.0.0.1:4200/api/videos/explore'
-		)
+		const response = await axiosClassic.get<IExploreVideosResponse>(`${this._VIDEOS}/explore`)
+
 		return response.data
 	}
 }
