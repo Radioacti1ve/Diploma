@@ -19,6 +19,7 @@ export function Layout({ children }: PropsWithChildren<unknown>) {
 		<main
 			className={cn(
 				'flex min-h-screen',
+				styles.initialSidebar,
 				isShowedSidebar ? styles.showedSidebar : styles.hidedSidebar
 			)}
 		>

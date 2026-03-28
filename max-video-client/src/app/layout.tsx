@@ -10,7 +10,10 @@ import './globals.scss'
 const notoSans = Noto_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-	title: 'RED Video',
+	title: {
+		absolute: 'Max Video',
+		template: `%s | Max Video`
+	},
 	description: 'Best app for video watching'
 }
 
