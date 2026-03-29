@@ -1,37 +1,34 @@
 'use client'
 
 import { useState } from 'react'
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useForm } from 'react-hook-form'
 
 import { Logo } from '@/components/layout/sidebar/header/Logo'
 
+import { SkeletonLoader } from '@/ui/SkeletonLoader'
 import { Button } from '@/ui/button/Button'
 import { Field } from '@/ui/field/Field'
 
-interface IAuthForm {
-	email: string
-	password: string
-	confirmPassword?: string
-}
+import type { IAuthForm } from './auth-form.types'
+import { useAuthForm } from './useAuthForm'
+
+import styles from './captcha.module.scss'
 
 export function Auth() {
 	const [isLogin, setIsLogin] = useState(true)
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		watch
+		watch,
+		reset
 	} = useForm<IAuthForm>({
 		mode: 'onChange'
 	})
 
-	const onSubmit: SubmitHandler<IAuthForm> = data => {
-		if (isLogin) {
-			console.log('login', data)
-		} else {
-			console.log('reg', data)
-		}
-	}
+	const { isLoading, onSubmit, recaptchaRef } = useAuthForm(isLogin ? 'login' : 'register', reset)
 
 	return (
 		<div className='w-screen h-screen flex justify-center items-center'>
@@ -60,35 +57,56 @@ export function Auth() {
 						Register
 					</button>
 				</div>
+
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<Field
-						label='Email'
-						type='email'
-						registration={register('email', { required: 'Email is required!' })}
-						error={errors.email?.message}
-						placeholder='Enter email:'
-					/>
-					<Field
-						label='Password'
-						type='password'
-						registration={register('password', { required: 'Password is required!' })}
-						error={errors.password?.message}
-						placeholder='Enter password:'
-					/>
-					{!isLogin && (
-						<Field
-							label='Password confirmation'
-							type='password'
-							registration={register('confirmPassword', {
-								required: 'Password confirmation is required!',
-								validate: value => value === watch('password') || 'Passwords don`t match!'
-							})}
-							error={errors.confirmPassword?.message}
-							placeholder='Enter password again:'
-						/>
+					{isLoading ? (
+						<SkeletonLoader count={3} />
+					) : (
+						<>
+							<Field
+								label='Email'
+								type='email'
+								registration={register('email', { required: 'Email is required!' })}
+								error={errors.email?.message}
+								placeholder='Enter email:'
+							/>
+							<Field
+								label='Password'
+								type='password'
+								registration={register('password', { required: 'Password is required!' })}
+								error={errors.password?.message}
+								placeholder='Enter password:'
+							/>
+							{!isLogin && (
+								<Field
+									label='Password confirmation'
+									type='password'
+									registration={register('confirmPassword', {
+										required: 'Password confirmation is required!',
+										validate: value => value === watch('password') || 'Passwords don`t match!'
+									})}
+									error={errors.confirmPassword?.message}
+									placeholder='Enter password again:'
+								/>
+							)}
+
+							<ReCAPTCHA
+								ref={recaptchaRef}
+								size='compact'
+								sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+								theme='light'
+								className={styles.recaptcha}
+							/>
+						</>
 					)}
-					<div className='text-center mt-6'>
-						<Button type='submit'>{isLogin ? 'Login' : 'Register'}</Button>
+
+					<div className='text-center mt-4'>
+						<Button
+							type='submit'
+							isLoading={isLoading}
+						>
+							{isLogin ? 'Login' : 'Register'}
+						</Button>
 					</div>
 				</form>
 			</div>
