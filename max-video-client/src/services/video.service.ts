@@ -19,8 +19,9 @@ class VideoService {
 		return response.data
 	}
 
-	getVideoGames() {
-		return axiosClassic.get<IVideo[]>(`${this._VIDEOS}/games`)
+	async getVideoGames() {
+		const response = await axiosClassic.get<IExploreVideosResponse>(`${this._VIDEOS}/games`)
+		return response.data
 	}
 
 	getTrendingVideos() {

@@ -25,14 +25,14 @@ export const metadata: Metadata = {
 }
 
 export default async function VideoGamesPage() {
-	const videos = await videoService.getVideoGames()
+	const { videos } = await videoService.getVideoGames()
 
 	return (
 		<section>
 			<Heading Icon={Gamepad2}>Video games</Heading>
 			<div className='grid-6-cols'>
-				{videos.data.length ? (
-					videos.data.map(video => (
+				{videos.length ? (
+					videos.map(video => (
 						<VideoItem
 							key={video.id}
 							video={video}
