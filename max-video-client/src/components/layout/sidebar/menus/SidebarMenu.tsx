@@ -8,9 +8,10 @@ import { MenuItem } from './MenuItem'
 interface Props {
 	title?: string
 	menu: ISidebarItem[]
+	isShowedSidebar: boolean
 }
 
-export function SidebarMenu({ menu, title }: Props) {
+export function SidebarMenu({ menu, title, isShowedSidebar }: Props) {
 	const pathname = usePathname()
 
 	return (
@@ -22,6 +23,7 @@ export function SidebarMenu({ menu, title }: Props) {
 						key={menuItem.label}
 						item={menuItem}
 						isActive={!!match(menuItem.link)(pathname)}
+						isShowedSidebar={isShowedSidebar}
 					/>
 				))}
 			</ul>

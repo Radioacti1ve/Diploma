@@ -8,11 +8,8 @@ import toast from 'react-hot-toast'
 
 import { PAGE } from '@/config/public-page.config'
 
-import { clearAuthData } from '@/store/auth.slice'
-
 import type { IAuthData, IAuthForm } from './auth-form.types'
 import { authService } from '@/services/auth.service'
-import { useAppDispatch } from '@/store'
 
 export function useAuthForm(type: 'login' | 'register', reset: UseFormReset<IAuthForm>) {
 	const router = useRouter()
@@ -26,9 +23,7 @@ export function useAuthForm(type: 'login' | 'register', reset: UseFormReset<IAut
 		mutationFn: (data: IAuthData) => authService.main(type, data, recaptchaRef.current?.getValue())
 	})
 
-	const dispatch = useAppDispatch()
-
-	const onSubmit: SubmitHandler<IAuthForm> = data => {
+	const onSubmit: SubmitHandler<IAuthForm> = ({ email, password }) => {
 		const token = recaptchaRef.current?.getValue()
 
 		if (!token) {
@@ -38,24 +33,28 @@ export function useAuthForm(type: 'login' | 'register', reset: UseFormReset<IAut
 			return
 		}
 
-		toast.promise(mutateAsync(data), {
-			loading: 'Loading...',
-			success: () => {
-				startTransition(() => {
-					reset()
-					router.push(PAGE.HOME)
-				})
+		toast.promise(
+			mutateAsync({
+				email,
+				password
+			}),
+			{
+				loading: 'Loading...',
+				success: () => {
+					startTransition(() => {
+						reset()
+						router.push(PAGE.HOME)
+					})
 
-				return 'Success login!'
-			},
-			error: e => {
-				if (axios.isAxiosError(e)) {
-					// @ts-ignore
-					dispatch(clearAuthData())
-					return e.response?.data?.message
+					return 'Success login!'
+				},
+				error: e => {
+					if (axios.isAxiosError(e)) {
+						return e.response?.data?.message
+					}
 				}
 			}
-		})
+		)
 	}
 
 	const isLoading = isPending || isAuthPending
