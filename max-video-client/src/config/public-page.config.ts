@@ -1,4 +1,6 @@
 class PublicPage {
+	AUTH = '/auth'
+
 	HOME = '/'
 	TRENDING = '/trending'
 	VIDEO_GAMES = '/video-games'
@@ -20,7 +22,7 @@ class PublicPage {
 	}
 
 	SEARCH(searchTerm: string) {
-		return `/s?term=${encodeURIComponent(searchTerm)}`
+		return `/s?term=${searchTerm}`
 	}
 }
 
