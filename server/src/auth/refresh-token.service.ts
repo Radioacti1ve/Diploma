@@ -12,20 +12,19 @@ export class RefreshTokenService {
 
 		res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
 			httpOnly: true,
-			domain: 'localhost',
 			expires: expiresIn,
-			secure: true, // true if production
-			sameSite: 'none' // lax if production
+			secure: false,
+			sameSite: 'lax',
+			path: '/'
 		})
 	}
 
 	removeRefreshTokenFromResponse(res: Response) {
-		res.cookie(this.REFRESH_TOKEN_NAME, '', {
+		res.clearCookie(this.REFRESH_TOKEN_NAME, {
 			httpOnly: true,
-			domain: 'localhost',
-			expires: new Date(0),
-			secure: true, // true if production
-			sameSite: 'none' // lax if production
+			secure: false,
+			sameSite: 'lax',
+			path: '/'
 		})
 	}
 }
