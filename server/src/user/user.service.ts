@@ -1,8 +1,13 @@
 import { PrismaService } from '@/prisma.service'
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException
+} from '@nestjs/common'
 import { hash } from 'argon2'
 import { omit } from 'lodash'
 import { UpdateUserDto } from './dto/update-user.dto'
+import { Prisma } from '@prisma/client'
 
 @Injectable()
 export class UserService {
@@ -66,41 +71,81 @@ export class UserService {
 		}
 	}
 
-	async updateProfile(
-		id: string,
-		{ channel, password, ...dto }: UpdateUserDto
-	) {
-		const user = await this.prisma.user.findUnique({
-			where: { id }
-		})
-		if (!user) throw new NotFoundException('User not found')
-		const isSameUser = await this.prisma.user.findUnique({
-			where: { email: dto.email }
+	async updateProfile(id: string, dto: UpdateUserDto) {
+		const existingUser = await this.prisma.user.findUnique({
+			where: { id },
+			include: {
+				channel: true
+			}
 		})
 
-		if (isSameUser && String(id) !== String(isSameUser.id))
-			throw new NotFoundException('Email busy')
+		if (!existingUser) {
+			throw new NotFoundException('User not found')
+		}
 
-		if (password) {
-			const hashPassword = await hash(password)
-			user.password = hashPassword
+		if (dto.email) {
+			const userWithSameEmail = await this.prisma.user.findUnique({
+				where: { email: dto.email }
+			})
+
+			if (userWithSameEmail && userWithSameEmail.id !== id) {
+				throw new BadRequestException('Email busy')
+			}
+		}
+
+		const data: Prisma.UserUpdateInput = {}
+
+		if (dto.name !== undefined) {
+			data.name = dto.name
+		}
+
+		if (dto.email !== undefined) {
+			data.email = dto.email
+		}
+
+		if (dto.password) {
+			data.password = await hash(dto.password)
+		}
+
+		if (dto.channel) {
+			if (!existingUser.channel && !dto.channel.slug) {
+				throw new BadRequestException(
+					'channel.slug is required when creating a channel'
+				)
+			}
+
+			data.channel = {
+				upsert: {
+					create: {
+						slug: dto.channel.slug!,
+						description: dto.channel.description ?? null,
+						avatarUrl: dto.channel.avatarUrl ?? null,
+						bannerUrl: dto.channel.bannerUrl ?? null
+					},
+					update: {
+						...(dto.channel.slug !== undefined && { slug: dto.channel.slug }),
+						...(dto.channel.description !== undefined && {
+							description: dto.channel.description
+						}),
+						...(dto.channel.avatarUrl !== undefined && {
+							avatarUrl: dto.channel.avatarUrl
+						}),
+						...(dto.channel.bannerUrl !== undefined && {
+							bannerUrl: dto.channel.bannerUrl
+						})
+					}
+				}
+			}
 		}
 
 		return this.prisma.user.update({
 			where: { id },
-			data: {
-				password: user.password,
-				...dto,
-				channel: {
-					upsert: {
-						create: channel,
-						update: channel
-					}
-				}
+			data,
+			include: {
+				channel: true
 			}
 		})
 	}
-
 	async getCount() {
 		return this.prisma.user.count()
 	}

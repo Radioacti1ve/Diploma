@@ -18,12 +18,32 @@ export class CreateChannelDto {
 	bannerUrl?: string
 }
 
-export class CreateUserDto {
+export class UpdateChannelDto {
+	@IsOptional()
+	@IsString()
+	slug?: string
+
+	@IsOptional()
+	@IsString()
+	description?: string
+
+	@IsOptional()
+	@IsString()
+	avatarUrl?: string
+
+	@IsOptional()
+	@IsString()
+	bannerUrl?: string
+}
+
+export class UpdateUserDto {
+	@IsOptional()
 	@IsString()
 	name?: string
 
+	@IsOptional()
 	@IsEmail()
-	email: string
+	email?: string
 
 	@IsOptional()
 	@IsString()
@@ -31,8 +51,6 @@ export class CreateUserDto {
 
 	@IsOptional()
 	@ValidateNested()
-	@Type(() => CreateChannelDto)
-	channel?: CreateChannelDto
+	@Type(() => UpdateChannelDto)
+	channel?: UpdateChannelDto
 }
-
-export type UpdateUserDto = Partial<CreateUserDto>
