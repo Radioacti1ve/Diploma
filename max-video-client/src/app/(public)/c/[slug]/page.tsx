@@ -53,8 +53,8 @@ export default async function ChannelPage({ params: { slug } }: TPageSlugProp) {
 					<Image
 						alt={channel.user.name || ''}
 						src={channel.bannerUrl}
-						layout='fill'
-						objectFit='cover'
+						fill
+						style={{ objectFit: 'cover' }}
 						quality={100}
 						priority
 					/>
@@ -80,7 +80,7 @@ export default async function ChannelPage({ params: { slug } }: TPageSlugProp) {
 							</span>
 						</Heading>
 						<div className='mb-2 text-gray-400 text-[0.9rem] flex items-center gap-1'>
-							<span	>/{channel.slug}</span>
+							<span>/{channel.slug}</span>
 							<span>•</span>
 							<span>{transformCount(channel.subscribers.length)} subscribers</span>
 							<span>•</span>
