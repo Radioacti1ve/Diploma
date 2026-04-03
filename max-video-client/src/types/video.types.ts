@@ -2,8 +2,8 @@ import type { IChannel } from './channel.types'
 
 export interface IVideo {
 	id: string
+	publicId: string
 	title: string
-	slug: string
 	description: string
 	thumbnailUrl: string
 	videoFileName: string
@@ -19,4 +19,12 @@ export interface IExploreVideosResponse {
 	totalCount: number
 	totalPages: number
 	videos: IVideo[]
+}
+
+export interface IFullVideo extends IVideo {
+	likes: []
+}
+
+export interface ISingleVideoResponse extends IFullVideo {
+	similarVideos: IVideo[]
 }
