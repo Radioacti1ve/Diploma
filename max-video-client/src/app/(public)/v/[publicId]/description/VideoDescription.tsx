@@ -13,7 +13,7 @@ export function VideoDescription({ description }: { description: string }) {
 	const { initialContent, isShouldShowToggle } = processHtmlContent(description, 3)
 
 	return (
-		<div className='relative mb-4'>
+		<div className='relative mb-4 bg-gray-800 py-1.5 px-3 rounded-lg'>
 			<article className={styles.article}>
 				{parse(isExpanded ? description : initialContent)}
 			</article>
@@ -21,7 +21,7 @@ export function VideoDescription({ description }: { description: string }) {
 			{isShouldShowToggle && (
 				<button
 					onClick={() => setIsExpanded(prev => !prev)}
-					className='text-gray-400 uppercase transition-colors hover:text-gray-200'
+					className='text-gray-400 uppercase transition-colors hover:text-gray-200 mt-2'
 					aria-expanded={isExpanded}
 				>
 					{isExpanded ? 'Hide' : 'Show more'}

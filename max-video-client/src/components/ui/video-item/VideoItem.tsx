@@ -1,12 +1,14 @@
 import * as m from 'framer-motion/m'
-import { BadgeCheck, type LucideIcon } from 'lucide-react'
+import { type LucideIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { PAGE } from '@/config/public-page.config'
 
+import { transformCount } from '@/utils/transform-count'
 import { transformDate } from '@/utils/transform-date'
-import { transformViews } from '@/utils/transform-views'
+
+import { VerifiedBadge } from '../VerifiedBadge'
 
 import type { IVideo } from '@/types/video.types'
 
@@ -35,10 +37,10 @@ export function VideoItem({ video, Icon }: Props) {
 				<Link href={PAGE.VIDEO(video.publicId)}>
 					<Image
 						src={video.thumbnailUrl}
-						width={250}
-						height={140}
+						width={307}
+						height={171}
 						alt={video.title}
-						className='w-[250px] h-[140px] object-cover rounded-md'
+						className='w-[307px] h-[171px] object-cover rounded-md'
 					/>
 				</Link>
 				<Link
@@ -51,6 +53,7 @@ export function VideoItem({ video, Icon }: Props) {
 						height={35}
 						alt={video?.channel?.user?.name || ''}
 						className='rounded-full shadow'
+						quality={100}
 					/>
 				</Link>
 			</div>
@@ -62,7 +65,7 @@ export function VideoItem({ video, Icon }: Props) {
 							size={20}
 						/>
 					)}
-					<span className='text-gray-400 text-sm'>{transformViews(video.viewsCount)}</span>
+					<span className='text-gray-400 text-sm'>{transformCount(video.viewsCount)} views</span>
 				</div>
 				<div>
 					<span className='text-gray-400 text-xs'>{transformDate(video.createdAt)}</span>
@@ -82,14 +85,7 @@ export function VideoItem({ video, Icon }: Props) {
 					className='flex items-center gap-1'
 				>
 					<span className='text-gray-400 text-sm'>{video?.channel?.user?.name}</span>
-					{video.channel.isVerified && (
-						<span>
-							<BadgeCheck
-								className='text-green-500'
-								size={15}
-							/>
-						</span>
-					)}
+					{video.channel.isVerified && <VerifiedBadge />}
 				</Link>
 			</div>
 		</m.div>
