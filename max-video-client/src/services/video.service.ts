@@ -1,12 +1,12 @@
 import { axiosClassic } from '@/api/axios'
 
-import type { IExploreVideosResponse, ISingleVideoResponse, IVideo } from '@/types/video.types'
+import type { IVideosPagination, ISingleVideoResponse, IVideo } from '@/types/video.types'
 
 class VideoService {
 	private _VIDEOS = '/videos'
 
 	async getAll(searchTerm?: string | null) {
-		const response = await axiosClassic.get<IExploreVideosResponse>(
+		const response = await axiosClassic.get<IVideosPagination>(
 			this._VIDEOS,
 			searchTerm
 				? {
@@ -24,7 +24,7 @@ class VideoService {
 	}
 
 	async getVideoGames() {
-		const response = await axiosClassic.get<IExploreVideosResponse>(`${this._VIDEOS}/games`)
+		const response = await axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/games`)
 		return response.data
 	}
 
@@ -33,7 +33,7 @@ class VideoService {
 	}
 
 	async getExploreVideos() {
-		const response = await axiosClassic.get<IExploreVideosResponse>(`${this._VIDEOS}/explore`)
+		const response = await axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/explore`)
 
 		return response.data
 	}
