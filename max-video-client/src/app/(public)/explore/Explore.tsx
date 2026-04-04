@@ -18,7 +18,7 @@ export function Explore() {
 	return (
 		<section>
 			<Heading Icon={Compass}>Explore</Heading>
-			<div className='grid-6-cols'>
+			<div className='grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]'>
 				{isLoading ? (
 					<SkeletonLoader
 						count={6}

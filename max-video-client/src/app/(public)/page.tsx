@@ -32,7 +32,7 @@ export default async function Home() {
 			{!!trendingVideos.length && (
 				<section className='mb-10'>
 					<Heading Icon={Flame}>Trending</Heading>
-					<div className='grid-6-cols'>
+					<div className='grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]'>
 						{trendingVideos.map(video => (
 							<VideoItem
 								key={video.id}
