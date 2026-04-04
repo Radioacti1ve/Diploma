@@ -9,10 +9,12 @@ import './globals.scss'
 
 const notoSans = Noto_Sans({ subsets: ['latin'] })
 
+export const fetchCache = 'default-cache'
+
 export const metadata: Metadata = {
 	title: {
-		absolute: 'Max Video',
-		template: `%s | Max Video`
+		absolute: 'RED Video',
+		template: `%s | RED Video`
 	},
 	description: 'Best app for video watching',
 	metadataBase: new URL(SITE_URL)

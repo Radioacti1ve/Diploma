@@ -9,7 +9,6 @@ import { PAGE } from '@/config/public-page.config'
 import { videoService } from '@/services/video.service'
 
 export const revalidate = 100
-export const dynamic = 'force-static'
 
 export const metadata: Metadata = {
 	title: 'Trending',
@@ -30,7 +29,7 @@ export default async function TrendingPage() {
 	return (
 		<section>
 			<Heading Icon={Flame}>Trending</Heading>
-			<div className='grid-6-cols'>
+			<div className='grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]'>
 				{videos.data.length ? (
 					videos.data.map(video => (
 						<VideoItem

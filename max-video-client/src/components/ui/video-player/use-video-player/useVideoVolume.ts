@@ -2,7 +2,7 @@ import { type RefObject, useState } from 'react'
 
 import type { HTMLCustomVideoElement } from '../video-player.types'
 
-export function useVideoVolume(playerRef: RefObject<HTMLCustomVideoElement>) {
+export function useVideoVolume(playerRef: RefObject<HTMLCustomVideoElement | null>) {
 	const [volume, setVolume] = useState(1)
 	const [isMuted, setIsMuted] = useState(false)
 

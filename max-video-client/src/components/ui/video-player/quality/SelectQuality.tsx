@@ -34,34 +34,35 @@ export function SelectQuality({ currentValue, onChange, maxResolution }: Props) 
 
 			<AnimatePresence>
 				{isShow && (
-					<m.ul
+					<m.div
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: 10 }}
 						transition={{ duration: 0.3 }}
-						className='bg-gray-800 py-2 px-4 rounded absolute bottom-[125%] right-0 z-10 shadow'
 					>
-						{availableQualities.map(quality => (
-							<li
-								key={quality}
-								className='mb-1'
-							>
-								<button
-									onClick={() => {
-										onChange(quality)
-										setIsShow(false)
-									}}
-									className={cn('border-b border-b-transparent transition-colors', {
-										'hover:text-primary': quality !== currentValue,
-										'border-b-white': quality === currentValue
-									})}
-									disabled={quality === currentValue}
+						<ul className='bg-gray-800 py-2 px-4 rounded absolute bottom-[125%] right-0 z-10 shadow'>
+							{availableQualities.map(quality => (
+								<li
+									key={quality}
+									className='mb-1'
 								>
-									{quality}
-								</button>
-							</li>
-						))}
-					</m.ul>
+									<button
+										onClick={() => {
+											onChange(quality)
+											setIsShow(false)
+										}}
+										className={cn('border-b border-b-transparent transition-colors', {
+											'hover:text-primary': quality !== currentValue,
+											'border-b-white': quality === currentValue
+										})}
+										disabled={quality === currentValue}
+									>
+										{quality}
+									</button>
+								</li>
+							))}
+						</ul>
+					</m.div>
 				)}
 			</AnimatePresence>
 		</div>

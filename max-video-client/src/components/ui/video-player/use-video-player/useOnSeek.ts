@@ -7,8 +7,8 @@ const SKIP_TIME_SECONDS = 10
 export type TSkipTime = 'forward' | 'backward'
 
 export function useOnSeek(
-	playerRef: RefObject<HTMLCustomVideoElement>,
-	bgRef: RefObject<HTMLCustomVideoElement>,
+	playerRef: RefObject<HTMLCustomVideoElement | null>,
+	bgRef: RefObject<HTMLCustomVideoElement | null>,
 	setCurrentTime: Dispatch<SetStateAction<number>>
 ) {
 	const onSeek = (time: number) => {
@@ -19,6 +19,7 @@ export function useOnSeek(
 		if (bgRef?.current) {
 			bgRef.current.currentTime = time
 		}
+
 		setCurrentTime(time)
 	}
 
