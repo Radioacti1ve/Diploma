@@ -33,8 +33,8 @@ class AuthService {
 	}
 
 	async initializeAuth() {
-		const accessToken = Cookies.get(EnumTokens.ACCESS_TOKEN)
-		if (accessToken) return
+		const initialStore = store.getState().auth
+		if (initialStore.user) return
 
 		try {
 			await this.getNewTokens()
@@ -49,6 +49,7 @@ class AuthService {
 
 		if (response.data.accessToken) {
 			this._saveTokenStorage(response.data.accessToken)
+
 			store.dispatch(setAuthData(response.data))
 		}
 

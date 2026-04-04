@@ -1,22 +1,37 @@
+'use client'
+
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 import { Heading } from '@/ui/Heading'
 import { VerifiedBadge } from '@/ui/VerifiedBadge'
 
 import { PAGE } from '@/config/public-page.config'
 
+import { useAuth } from '@/hooks/useAuth'
+
 import { transformDate } from '@/utils/transform-date'
 
-import { CommentActions } from './CommentActions'
 import { getInitials } from './get-initials'
 import type { ISingleVideoResponse } from '@/types/video.types'
 
+const DynamicCommentActions = dynamic(
+	() => import('./CommentActions').then(mod => mod.CommentActions),
+	{ ssr: false }
+)
+
 interface Props {
 	comment: ISingleVideoResponse['comments'][0]
+	refetch: () => void
 }
 
-export function CommentItem({ comment }: Props) {
+export function CommentItem({ comment, refetch }: Props) {
+	const [text, setText] = useState(comment.text)
+
+	const { isLoggedIn, user } = useAuth()
+
 	return (
 		<div className='flex gap-3.5 items-start py-5 border-b border-b-border/5 last:border-none'>
 			{comment.user?.channel ? (
@@ -48,8 +63,24 @@ export function CommentItem({ comment }: Props) {
 
 					<div className='text-gray-500 text-xs'>{transformDate(comment.createdAt)}</div>
 				</div>
-				<div className='text-gray-300 text-sm leading-snug'>{comment.text}</div>
-				<CommentActions />
+				{isLoggedIn && user?.id === comment.user.id ? (
+					<>
+						<div>
+							<textarea
+								className='text-gray-300 text-sm leading-snug bg-transparent resize-none outline-none border border-transparent focus:border-border'
+								value={text}
+								onChange={e => setText(e.target.value)}
+							/>
+						</div>
+						<DynamicCommentActions
+							comment={comment}
+							refetch={refetch}
+							newText={text}
+						/>
+					</>
+				) : (
+					<div className='text-gray-300 text-sm leading-snug'>{comment.text}</div>
+				)}
 			</div>
 		</div>
 	)
