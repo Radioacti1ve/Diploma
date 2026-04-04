@@ -44,11 +44,11 @@ export function VideoItem({ video, Icon }: Props) {
 					/>
 				</Link>
 				<Link
-					href={PAGE.CHANNEL(video.channel.slug)}
+					href={PAGE.CHANNEL(video?.channel?.slug) || ''}
 					className='absolute left-1.5 bottom-2'
 				>
 					<Image
-						src={video.channel.avatarUrl}
+						src={video.channel?.avatarUrl || ''}
 						width={35}
 						height={35}
 						alt={video?.channel?.user?.name || ''}
@@ -81,7 +81,7 @@ export function VideoItem({ video, Icon }: Props) {
 			</div>
 			<div>
 				<Link
-					href={PAGE.CHANNEL(video.channel.slug)}
+					href={PAGE.CHANNEL(video?.channel?.slug) || ''}
 					className='flex items-center gap-1'
 				>
 					<span className='text-gray-400 text-sm'>{video?.channel?.user?.name}</span>

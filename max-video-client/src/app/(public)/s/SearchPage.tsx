@@ -26,7 +26,7 @@ export function SearchPage() {
 			>
 				Search &quot;{searchParams.get('term')}&quot;
 			</Heading>
-			<div className='grid grid-cols-6 gap-6'>
+			<div className='grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,280px))]'>
 				{isLoading ? (
 					<SkeletonLoader
 						count={6}

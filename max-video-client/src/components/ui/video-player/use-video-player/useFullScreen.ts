@@ -2,7 +2,7 @@ import { type RefObject } from 'react'
 
 import type { HTMLCustomVideoElement } from '../video-player.types'
 
-export function useFullScreen(playerRef: RefObject<HTMLCustomVideoElement>) {
+export function useFullScreen(playerRef: RefObject<HTMLCustomVideoElement | null>) {
 	const toggleFullScreen = () => {
 		if (!playerRef.current) return
 
