@@ -28,6 +28,7 @@ export function SingleVideo({ video }: Props) {
 						toggleTheaterMode={() => {
 							setIsTheaterMode(!isTheaterMode)
 						}}
+						maxResolution={video.maxResolution}
 					/>
 				</div>
 

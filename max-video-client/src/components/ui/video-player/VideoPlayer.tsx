@@ -9,34 +9,38 @@ import { EnumVideoPlayerQuality } from './video-player.types'
 import { getTime } from './video-player.util'
 import { VolumeControl } from './volume/VolumeControl'
 
-export function VideoPlayer({
-	fileName,
-	toggleTheaterMode
-}: {
+interface Props {
 	fileName: string
 	toggleTheaterMode: () => void
-}) {
-	const { fn, playerRef, state } = useVideoPlayer({ fileName })
+	maxResolution: EnumVideoPlayerQuality
+}
+
+export function VideoPlayer({ fileName, toggleTheaterMode, maxResolution }: Props) {
+	const { fn, playerRef, state } = useVideoPlayer({ fileName, toggleTheaterMode })
 
 	return (
 		<div className='relative rounded-2xl overflow-hidden mb-5'>
 			<video
 				ref={playerRef}
-				className='aspect-video'
+				className='aspect-video w-full'
 				controls={false}
 				src={`/uploads/videos/${EnumVideoPlayerQuality['1080p']}/${fileName}`}
 				preload='metadata'
 			/>
 
-			<div className='flex items-center justify-between absolute bottom-5 left-5 right-5'>
-				<div className='flex items-center gap-4'>
+			<div className='grid grid-cols-[7fr_1fr] gap-7 absolute bottom-5 left-5 right-5'>
+				<div className='flex items-center gap-6'>
 					<button
 						onClick={fn.togglePlayPause}
 						className='transition-colors hover:text-primary'
 					>
 						{state.isPlaying ? <Pause /> : <Play />}
 					</button>
-					<PlayerProgressBar progress={state.progress} />
+					<PlayerProgressBar
+						currentTime={state.currentTime}
+						duration={state.videoTime}
+						onSeek={fn.onSeek}
+					/>
 
 					<div>
 						<span>{getTime(state.videoTime)}</span>
@@ -52,6 +56,7 @@ export function VideoPlayer({
 					<SelectQuality
 						currentValue={state.quality}
 						onChange={fn.changeQuality}
+						maxResolution={maxResolution}
 					/>
 					<button
 						className='transition-colors hover:text-primary'

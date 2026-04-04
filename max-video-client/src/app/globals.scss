@@ -41,3 +41,29 @@ body {
 	border-radius: 50%;
 	cursor: pointer;
 }
+
+.rc-slider-handle:focus,
+.rc-slider-handle:active {
+	outline: none;
+	box-shadow: none;
+}
+
+.tooltip-simple-text.rc-slider-tooltip .rc-slider-tooltip-inner {
+	@apply text-base;
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	color: #fff !important;
+	height: 16px;
+}
+
+.tooltip-simple-text.rc-slider-tooltip .rc-slider-tooltip-arrow {
+	display: none !important; /* Убираем стрелку тултипа */
+}
+
+.tooltip-simple-text.rc-slider-tooltip {
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+}
