@@ -10,6 +10,7 @@ import { SimilarVideos } from './SimilarVideos'
 import { VideoDescription } from './description/VideoDescription'
 import { VideoActions } from './video-actions/VideoActions'
 import { VideoChannel } from './video-channel/VideoChannel'
+import { Comments } from './сomments/Comments'
 import type { ISingleVideoResponse } from '@/types/video.types'
 
 interface Props {
@@ -20,7 +21,7 @@ export function SingleVideo({ video }: Props) {
 	const [isTheaterMode, setIsTheaterMode] = useState(false)
 
 	return (
-		<section className='grid gap-20 grid-cols-[3fr_.8fr] relative'>
+		<section className='grid gap-16 grid-cols-[3fr_.8fr] relative'>
 			<div>
 				<div className={cn(isTheaterMode ? 'absolute top-0 left-0 w-full' : 'relative')}>
 					<VideoPlayer
@@ -52,7 +53,8 @@ export function SingleVideo({ video }: Props) {
 				<VideoChannel video={video} />
 
 				<VideoDescription description={video.description} />
-				{/* TODO: Comments */}
+
+				<Comments video={video} />
 			</div>
 
 			{!!video.similarVideos.length && (

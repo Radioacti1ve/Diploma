@@ -20,14 +20,14 @@ const DynamicSubscribeButton = dynamicNext(
 export function VideoChannel({ video }: { video: ISingleVideoResponse }) {
 	return (
 		<div className='flex items-center justify-between mb-6'>
-			<div className='flex gap-2.5 items-center'>
+			<div className='flex gap-4 items-center'>
 				<Link href={PAGE.CHANNEL(video.channel.slug)}>
 					<Image
 						alt={video.channel.user.name || ''}
 						src={video.channel.avatarUrl}
 						width={55}
 						height={55}
-						className='rounded flex-shrink-0 shadow'
+						className='rounded-xl flex-shrink-0 shadow'
 						priority
 					/>
 				</Link>

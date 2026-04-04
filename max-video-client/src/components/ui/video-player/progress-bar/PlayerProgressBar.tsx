@@ -51,7 +51,7 @@ export function PlayerProgressBar({ currentTime, duration, onSeek }: Props) {
 				}}
 				handleRender={handleRender}
 				styles={{
-					track: { backgroundColor: COLORS.primary, height: 5 },
+					track: { backgroundColor: COLORS.primary, height: 5, transition: 'all .2s ease-in-out' },
 					rail: { backgroundColor: 'rgb(196 196 196 / 60%)', height: 5 },
 					handle: {
 						borderColor: 'transparent',
@@ -59,7 +59,8 @@ export function PlayerProgressBar({ currentTime, duration, onSeek }: Props) {
 						width: 16,
 						backgroundColor: 'transparent',
 						outline: 'none',
-						boxShadow: 'none'
+						boxShadow: 'none',
+						transition: 'all .2s ease-in-out'
 					}
 				}}
 			/>

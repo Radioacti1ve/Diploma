@@ -1,6 +1,7 @@
 import type { EnumVideoPlayerQuality } from '@/ui/video-player/video-player.types'
 
 import type { IChannel } from './channel.types'
+import type { IComment } from './comment.types'
 import type { IPagination } from './pagination.types'
 
 export interface IVideo {
@@ -19,6 +20,7 @@ export interface IVideo {
 
 export interface IFullVideo extends IVideo {
 	likes: []
+	comments: IComment[]
 }
 
 export interface ISingleVideoResponse extends IFullVideo {
