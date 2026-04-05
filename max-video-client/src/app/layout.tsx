@@ -13,8 +13,8 @@ export const fetchCache = 'default-cache'
 
 export const metadata: Metadata = {
 	title: {
-		absolute: 'RED Video',
-		template: `%s | RED Video`
+		absolute: 'Max Video',
+		template: `%s | Max Video`
 	},
 	description: 'Best app for video watching',
 	metadataBase: new URL(SITE_URL)
