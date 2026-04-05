@@ -45,7 +45,7 @@ export function UploadField({
 				className='flex items-center px-4 py-2 bg-transparent text-primary rounded-lg shadow-md cursor-pointer hover:bg-primary hover:text-white border border-primary transition-colors w-max'
 			>
 				<UploadCloud className='mr-2' />
-				Upload
+				Загрузить
 			</label>
 
 			<input
