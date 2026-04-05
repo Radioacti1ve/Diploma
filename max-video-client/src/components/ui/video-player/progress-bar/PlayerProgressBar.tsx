@@ -55,7 +55,7 @@ export function PlayerProgressBar({ currentTime, progress, duration, onSeek }: P
 			<input
 				type='range'
 				min={0}
-				max={duration}
+				max={duration || 1}
 				value={currentTime}
 				onChange={handleChange}
 				onMouseDown={() => setIsDragging(true)}

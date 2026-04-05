@@ -7,10 +7,11 @@ import { Heading } from '@/ui/Heading'
 import { VideoPlayer } from '@/ui/video-player/VideoPlayer'
 
 import { SimilarVideos } from './SimilarVideos'
+import { Comments } from './comments/Comments'
 import { VideoDescription } from './description/VideoDescription'
+import { useUpdateViews } from './useUpdateViews'
 import { VideoActions } from './video-actions/VideoActions'
 import { VideoChannel } from './video-channel/VideoChannel'
-import { Comments } from './сomments/Comments'
 import type { ISingleVideoResponse } from '@/types/video.types'
 
 interface Props {
@@ -19,6 +20,8 @@ interface Props {
 
 export function SingleVideo({ video }: Props) {
 	const [isTheaterMode, setIsTheaterMode] = useState(false)
+
+	useUpdateViews({ video })
 
 	return (
 		<section className='grid gap-16 grid-cols-[3fr_.8fr] relative'>

@@ -1,6 +1,6 @@
 import { axiosClassic } from '@/api/axios'
 
-import type { IVideosPagination, ISingleVideoResponse, IVideo } from '@/types/video.types'
+import type { ISingleVideoResponse, IVideo, IVideosPagination } from '@/types/video.types'
 
 class VideoService {
 	private _VIDEOS = '/videos'
@@ -32,10 +32,17 @@ class VideoService {
 		return axiosClassic.get<IVideo[]>(`${this._VIDEOS}/trending`)
 	}
 
-	async getExploreVideos() {
-		const response = await axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/explore`)
-
+	async getExploreVideos(userId?: string) {
+		const response = await axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/explore`, {
+			params: {
+				userId
+			}
+		})
 		return response.data
+	}
+
+	updateViews(publicId: string) {
+		return axiosClassic.put(`${this._VIDEOS}/update-views-count/${publicId}`)
 	}
 }
 

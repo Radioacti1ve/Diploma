@@ -17,11 +17,14 @@ export function useVideoProgress(playerRef: RefObject<HTMLCustomVideoElement | n
 			setVideoTime(originalTime)
 			setCurrentTime(currentTime)
 			setProgress(progress)
-
-			console.log('ergre')
 		}
 
 		player.addEventListener('loadedmetadata', handleLoadedMetadata)
+
+		// Если метаданные уже загружены, вызываем обработчик сразу
+		if (player.readyState >= 1) {
+			handleLoadedMetadata()
+		}
 
 		return () => {
 			player.removeEventListener('loadedmetadata', handleLoadedMetadata)

@@ -9,8 +9,7 @@ import type { TPagePublicIdProp } from '@/types/page.types'
 export const revalidate = 100
 
 export async function generateMetadata({ params }: TPagePublicIdProp): Promise<Metadata> {
-	const { publicId } = await params
-
+	const publicId = (await params).publicId
 	const data = await videoService.byPublicId(publicId)
 	const video = data.data
 
@@ -33,8 +32,7 @@ export async function generateStaticParams() {
 }
 
 export default async function VideoPage({ params }: TPagePublicIdProp) {
-	const { publicId } = await params
-
+	const publicId = (await params).publicId
 	const data = await videoService.byPublicId(publicId)
 	const video = data.data
 
