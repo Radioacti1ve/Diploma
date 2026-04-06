@@ -5,6 +5,7 @@ import { Compass } from 'lucide-react'
 
 import { Heading } from '@/ui/Heading'
 import { SkeletonLoader } from '@/ui/SkeletonLoader'
+import { VideoGrid } from '@/ui/VideoGrid'
 import { VideoItem } from '@/ui/video-item/VideoItem'
 
 import { videoService } from '@/services/video.service'
@@ -18,7 +19,7 @@ export function Explore() {
 	return (
 		<section>
 			<Heading Icon={Compass}>Explore</Heading>
-			<div className='grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]'>
+			<VideoGrid>
 				{isLoading ? (
 					<SkeletonLoader
 						count={6}
@@ -34,7 +35,7 @@ export function Explore() {
 				) : (
 					<div>Explore are temporarily unavailable</div>
 				)}
-			</div>
+			</VideoGrid>
 		</section>
 	)
 }

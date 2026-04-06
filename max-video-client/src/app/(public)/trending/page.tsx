@@ -2,6 +2,7 @@ import { Flame } from 'lucide-react'
 import type { Metadata } from 'next'
 
 import { Heading } from '@/ui/Heading'
+import { VideoGrid } from '@/ui/VideoGrid'
 import { VideoItem } from '@/ui/video-item/VideoItem'
 
 import { PAGE } from '@/config/public-page.config'
@@ -29,7 +30,7 @@ export default async function TrendingPage() {
 	return (
 		<section>
 			<Heading Icon={Flame}>Trending</Heading>
-			<div className='grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]'>
+			<VideoGrid>
 				{videos.data.length ? (
 					videos.data.map(video => (
 						<VideoItem
@@ -41,7 +42,7 @@ export default async function TrendingPage() {
 				) : (
 					<div>Trends are temporarily unavailable</div>
 				)}
-			</div>
+			</VideoGrid>
 		</section>
 	)
 }

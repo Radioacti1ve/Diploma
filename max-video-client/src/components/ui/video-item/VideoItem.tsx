@@ -34,13 +34,16 @@ export function VideoItem({ video, Icon }: Props) {
 			}}
 		>
 			<div className='relative mb-1.5'>
-				<Link href={PAGE.VIDEO(video.publicId)}>
+				<Link
+					href={PAGE.VIDEO(video.publicId)}
+					className='block relative w-full aspect-video'
+				>
 					<Image
 						src={video.thumbnailUrl}
-						width={307}
-						height={171}
 						alt={video.title}
-						className='w-[307px] h-[171px] object-cover rounded-md'
+						fill
+						className='object-cover rounded-md'
+						sizes='(max-width: 900px) 100vw, 350px'
 					/>
 				</Link>
 				<Link
