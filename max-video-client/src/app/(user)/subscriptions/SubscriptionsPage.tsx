@@ -7,6 +7,7 @@ import { SkeletonLoader } from '@/ui/SkeletonLoader'
 import { VideoItem } from '@/ui/video-item/VideoItem'
 
 import { useProfile } from '@/hooks/useProfile'
+import { VideoGrid } from '@/ui/VideoGrid'
 
 export function SubscriptionsPage() {
 	const { profile, isLoading } = useProfile()
@@ -19,7 +20,7 @@ export function SubscriptionsPage() {
 			>
 				Subscriptions
 			</Heading>
-			<div className='grid grid-cols-6 gap-6'>
+			<VideoGrid>
 				{isLoading ? (
 					<SkeletonLoader
 						count={6}
@@ -35,7 +36,7 @@ export function SubscriptionsPage() {
 				) : (
 					<p>Subscriptions not found!</p>
 				)}
-			</div>
+			</VideoGrid>
 		</section>
 	)
 }

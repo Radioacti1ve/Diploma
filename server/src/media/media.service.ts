@@ -29,7 +29,14 @@ export class MediaService {
 		const filePath = path.join(uploadFolder, uniqueFileName)
 
 		if (this.isVideo(file)) {
-			await writeFile(filePath, file.buffer)
+			await writeFile(
+				filePath,
+				new Uint8Array(
+					file.buffer.buffer,
+					file.buffer.byteOffset,
+					file.buffer.byteLength
+				)
+			)
 
 			const { width: inputWidth, height: inputHeight } =
 				await this.getVideoResolution(filePath)
@@ -55,7 +62,14 @@ export class MediaService {
 				}
 			]
 		} else {
-			await writeFile(filePath, file.buffer)
+			await writeFile(
+				filePath,
+				new Uint8Array(
+					file.buffer.buffer,
+					file.buffer.byteOffset,
+					file.buffer.byteLength
+				)
+			)
 
 			return [
 				{

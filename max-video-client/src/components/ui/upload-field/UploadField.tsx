@@ -13,8 +13,8 @@ interface Props {
 	error?: FieldError
 	className?: string
 	isImage?: boolean
-	aspectRation?: '16:9' | '1:1'
 	overlay?: string
+	sizePreview?: [number, number]
 }
 
 export function UploadField({
@@ -25,8 +25,8 @@ export function UploadField({
 	folder,
 	isImage = true,
 	value,
-	aspectRation = '1:1',
-	overlay
+	overlay,
+	sizePreview
 }: Props) {
 	const { isLoading, uploadFile } = useUpload({ onChange, folder })
 	const inputId = useId()
@@ -45,7 +45,7 @@ export function UploadField({
 				className='flex items-center px-4 py-2 bg-transparent text-primary rounded-lg shadow-md cursor-pointer hover:bg-primary hover:text-white border border-primary transition-colors w-max'
 			>
 				<UploadCloud className='mr-2' />
-				Upload
+				Загрузить
 			</label>
 
 			<input
@@ -60,9 +60,9 @@ export function UploadField({
 			{isImage && (
 				<ImagePreview
 					isLoading={isLoading}
-					aspectRation={aspectRation}
 					overlay={overlay}
 					value={value}
+					sizePreview={sizePreview}
 				/>
 			)}
 		</div>

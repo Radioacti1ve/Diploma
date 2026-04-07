@@ -2,6 +2,7 @@ import { Gamepad2 } from 'lucide-react'
 import type { Metadata } from 'next'
 
 import { Heading } from '@/ui/Heading'
+import { VideoGrid } from '@/ui/VideoGrid'
 import { VideoItem } from '@/ui/video-item/VideoItem'
 
 import { PAGE } from '@/config/public-page.config'
@@ -29,7 +30,7 @@ export default async function VideoGamesPage() {
 	return (
 		<section>
 			<Heading Icon={Gamepad2}>Video games</Heading>
-			<div className='grid-6-cols'>
+			<VideoGrid>
 				{videos.length ? (
 					videos.map(video => (
 						<VideoItem
@@ -40,7 +41,7 @@ export default async function VideoGamesPage() {
 				) : (
 					<div>Video games are temporarily unavailable</div>
 				)}
-			</div>
+			</VideoGrid>
 		</section>
 	)
 }

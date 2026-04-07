@@ -6,6 +6,7 @@ import { VideoItem } from '@/ui/video-item/VideoItem'
 
 import { Explore } from './explore/Explore'
 import { videoService } from '@/services/video.service'
+import { VideoGrid } from '@/ui/VideoGrid'
 
 export const revalidate = 100
 
@@ -31,7 +32,7 @@ export default async function Home() {
 			{!!trendingVideos.length && (
 				<section className='mb-10'>
 					<Heading Icon={Flame}>Trending</Heading>
-					<div className='grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]'>
+					<VideoGrid>
 						{trendingVideos.map(video => (
 							<VideoItem
 								key={video.id}
@@ -39,7 +40,7 @@ export default async function Home() {
 								Icon={Flame}
 							/>
 						))}
-					</div>
+					</VideoGrid>
 				</section>
 			)}
 			<Explore />

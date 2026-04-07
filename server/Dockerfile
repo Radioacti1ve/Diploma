@@ -2,7 +2,9 @@ FROM node:22-bookworm-slim
 
 WORKDIR /app
 
-RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y \
+  && apt-get install -y openssl ffmpeg \
+  && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
 RUN npm ci
@@ -10,5 +12,5 @@ RUN npm ci
 COPY . .
 RUN npx prisma generate
 
-EXPOSE 3000
+EXPOSE 4200
 CMD ["npm","run","start:dev"]
