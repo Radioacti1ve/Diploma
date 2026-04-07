@@ -33,7 +33,7 @@ export function VideoPlayer({ fileName, toggleTheaterMode, maxResolution }: Prop
 				ref={playerRef}
 				className='aspect-video w-full relative z-[1] rounded-xl'
 				controls={false}
-				src={`/uploads/videos/${EnumVideoPlayerQuality['1080p']}/${fileName}`}
+				src={`/uploads/videos/${EnumVideoPlayerQuality['720p']}/${fileName}`}
 				preload='metadata'
 			/>
 

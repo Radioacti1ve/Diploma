@@ -11,7 +11,7 @@ import { ProgressVideoProcessing } from './ProgressVideoProcessing'
 import { VideoForm } from './VideoForm'
 import type { IVideoFormData } from '@/types/studio-video.types'
 
-export function UploadVideoForm() {
+export function UploadVideoMain() {
 	const form = useForm<IVideoFormData>({
 		mode: 'onChange'
 	})
@@ -41,9 +41,10 @@ export function UploadVideoForm() {
 						Upload a video
 					</Heading>
 
-					<DragNDropVideo reset={form.reset} />
+					{!fileName && <DragNDropVideo reset={form.reset} />}
 
 					<ProgressVideoProcessing
+						isReadyToPublish={isReadyToPublish}
 						setIsReadyToPublish={setIsReadyToPublish}
 						fileName={fileName}
 					/>
