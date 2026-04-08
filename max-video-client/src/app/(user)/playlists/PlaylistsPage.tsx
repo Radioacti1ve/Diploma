@@ -4,6 +4,7 @@ import { ListVideo } from 'lucide-react'
 
 import { Heading } from '@/ui/Heading'
 import { SkeletonLoader } from '@/ui/SkeletonLoader'
+import { VideoGrid } from '@/ui/VideoGrid'
 import { Button } from '@/ui/button/Button'
 
 import { useOutside } from '@/hooks/useOutside'
@@ -34,7 +35,7 @@ export function PlaylistsPage() {
 					Create a playlist
 				</Button>
 			</div>
-			<div className='grid grid-cols-5 gap-6'>
+			<VideoGrid>
 				{isLoading ? (
 					<SkeletonLoader
 						count={3}
@@ -50,7 +51,7 @@ export function PlaylistsPage() {
 				) : (
 					<p>Playlists not found!</p>
 				)}
-			</div>
+			</VideoGrid>
 
 			{isShow && (
 				<CreatePlaylist

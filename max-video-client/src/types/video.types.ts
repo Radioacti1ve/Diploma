@@ -30,3 +30,7 @@ export interface ISingleVideoResponse extends IFullVideo {
 export interface IVideosPagination extends IPagination {
 	videos: IVideo[]
 }
+
+export interface IFullVideosPagination extends IPagination {
+	videos: IFullVideo[]
+}

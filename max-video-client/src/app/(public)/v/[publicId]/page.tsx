@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: TPagePublicIdProp): Promise<M
 }
 
 export async function generateStaticParams() {
-	const { videos } = await videoService.getAll()
+	const { data } = await videoService.getAll()
 
-	return videos.map(video => ({
+	return data.videos.map(video => ({
 		publicId: video.publicId
 	}))
 }

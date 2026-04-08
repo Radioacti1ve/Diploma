@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation'
 
 import { Heading } from '@/ui/Heading'
 import { SkeletonLoader } from '@/ui/SkeletonLoader'
+import { VideoGrid } from '@/ui/VideoGrid'
 import { VideoItem } from '@/ui/video-item/VideoItem'
 
 import { playlistService } from '@/services/playlist.service'
@@ -27,7 +28,7 @@ export function SinglePlaylist() {
 			>
 				{data?.data.title}
 			</Heading>
-			<div className='grid grid-cols-6 gap-6'>
+			<VideoGrid>
 				{isLoading ? (
 					<SkeletonLoader
 						count={6}
@@ -43,7 +44,7 @@ export function SinglePlaylist() {
 				) : (
 					<p>Videos in playlist not found!</p>
 				)}
-			</div>
+			</VideoGrid>
 		</section>
 	)
 }
