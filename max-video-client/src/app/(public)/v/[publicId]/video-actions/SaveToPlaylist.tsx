@@ -5,7 +5,7 @@ import toast from 'react-hot-toast'
 
 import { useOutside } from '@/hooks/useOutside'
 
-import { useUserPlaylists } from '@/app/(user)/playlists/useUserPlaylists'
+import { useUserPlaylists } from '@/app/my/playlists/useUserPlaylists'
 import { playlistService } from '@/services/playlist.service'
 import type { ISingleVideoResponse } from '@/types/video.types'
 

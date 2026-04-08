@@ -32,7 +32,7 @@ export function SettingsForm() {
 						<Field
 							label='Email'
 							type='email'
-							registration={register('email')}
+							registration={register('email', { required: 'Email is required!' })}
 							error={errors.email?.message}
 							placeholder='Enter email:'
 						/>
@@ -92,7 +92,7 @@ export function SettingsForm() {
 									value={value}
 									error={error}
 									folder='banners'
-									aspectRation='16:9'
+									sizePreview={[446, 250]}
 									overlay='/overlay.png'
 								/>
 							)}

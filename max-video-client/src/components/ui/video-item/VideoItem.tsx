@@ -15,9 +15,10 @@ import type { IVideo } from '@/types/video.types'
 interface Props {
 	video: IVideo
 	Icon?: LucideIcon
+	isImagePriority?: boolean
 }
 
-export function VideoItem({ video, Icon }: Props) {
+export function VideoItem({ video, Icon, isImagePriority }: Props) {
 	return (
 		<m.div
 			whileHover={{
@@ -42,6 +43,7 @@ export function VideoItem({ video, Icon }: Props) {
 						src={video.thumbnailUrl}
 						alt={video.title}
 						fill
+						priority={isImagePriority}
 						className='object-cover rounded-md'
 						sizes='(max-width: 900px) 100vw, 350px'
 					/>
@@ -57,6 +59,7 @@ export function VideoItem({ video, Icon }: Props) {
 						alt={video?.channel?.user?.name || ''}
 						className='rounded-full shadow'
 						quality={100}
+						priority={isImagePriority}
 					/>
 				</Link>
 			</div>
