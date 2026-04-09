@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
 import { type ChangeEvent, useCallback } from 'react'
-import toast from 'react-hot-toast'
 
 import { validateFileSize } from './validate-file-size'
 import { fileService } from '@/services/studio/file.service'
@@ -27,7 +26,9 @@ export const useUpload: TUseUpload = ({ onChange, folder, onError, onSuccess, ma
 			onChange && onChange(data[0].url)
 			onSuccess && onSuccess(data)
 		},
-		onError: error => {
+		onError: async error => {
+			const { toast } = await import('react-hot-toast')
+
 			toast.error(error.message)
 			onError && onError()
 		}

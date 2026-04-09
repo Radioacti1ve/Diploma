@@ -4,8 +4,6 @@ import { useMutation } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
 import { startTransition, useEffect, useState } from 'react'
 
-import { COLORS } from '@/constants/colors.constants'
-
 import { useProfile } from '@/hooks/useProfile'
 
 import { transformCount } from '@/utils/transform-count'
@@ -59,12 +57,12 @@ export function VideoActions({ video }: { video: ISingleVideoResponse }) {
 		<div className='flex items-center gap-7'>
 			<SaveToPlaylist video={video} />
 			<button
-				className='text-primary flex items-center gap-1.5 transition-opacity opacity-80 hover:opacity-100'
+				className='text-[#FF453A] flex items-center gap-1.5 transition-opacity opacity-80 hover:opacity-100'
 				onClick={() => mutate()}
 			>
 				<Heart
 					size={20}
-					fill={isLikedLocal ? COLORS.primary : 'transparent'}
+					fill={isLikedLocal ? '#FF453A' : 'transparent'}
 				/>
 				{transformCount(optimisticLike)}
 			</button>

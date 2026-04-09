@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 
 import { fileService } from '@/services/studio/file.service'
 
@@ -35,7 +34,13 @@ export function ProgressVideoProcessing({
 		setProgress(processingData)
 		if (processingData === 100) {
 			setIsReadyToPublish(true)
-			toast.success('Video processed successfully!')
+
+			const toastSuccess = async () => {
+				const { toast } = await import('react-hot-toast')
+				toast.success('Video processed successfully!')
+			}
+
+			toastSuccess()
 		}
 	}, [isSuccess, processingData, setIsReadyToPublish])
 

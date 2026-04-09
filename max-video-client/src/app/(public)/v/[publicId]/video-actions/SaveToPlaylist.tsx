@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { AnimatePresence, m } from 'framer-motion'
 import { Check, ListVideo } from 'lucide-react'
-import toast from 'react-hot-toast'
 
 import { useOutside } from '@/hooks/useOutside'
 
@@ -21,7 +20,8 @@ export function SaveToPlaylist({ video }: Props) {
 	const { mutate: togglePlaylist, isPending } = useMutation({
 		mutationKey: ['toggle video'],
 		mutationFn: (playlistId: string) => playlistService.toggleVideoInPlaylist(playlistId, video.id),
-		onSuccess() {
+		async onSuccess() {
+			const { toast } = await import('react-hot-toast')
 			toast.success('Successfully changed!', {
 				id: 'playlist'
 			})

@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Edit, ExternalLink, Trash2 } from 'lucide-react'
 import Link from 'next/link'
-import { type Toast, toast } from 'react-hot-toast'
+import { type Toast } from 'react-hot-toast'
 
 import { PAGE } from '@/config/public-page.config'
 import { STUDIO_PAGE } from '@/config/studio-page'
@@ -21,7 +21,9 @@ export function StudioActions({ video }: Props) {
 	const { mutate: deleteVideo, isPending: isDeletePending } = useMutation({
 		mutationKey: ['delete a video'],
 		mutationFn: () => studioVideoService.delete(video.id),
-		onSuccess: () => {
+		onSuccess: async () => {
+			const { toast } = await import('react-hot-toast')
+
 			queryClient.invalidateQueries({
 				queryKey: ['studioVideoList']
 			})
@@ -29,7 +31,9 @@ export function StudioActions({ video }: Props) {
 		}
 	})
 
-	const handleDelete = () => {
+	const handleDelete = async () => {
+		const { toast } = await import('react-hot-toast')
+
 		toast((t: Toast) => (
 			<div>
 				<p>Are you sure you want to delete this video?</p>
