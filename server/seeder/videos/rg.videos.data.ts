@@ -10,7 +10,7 @@ export const REDGROUP_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🎮 Подборка игр, которые реально зашли: от сюжетных до коротких “на вечер”.</p><p>Без спойлеров, с короткими аргументами: что цепляет, кому подойдёт, и сколько времени нужно, чтобы втянуться.</p><p>Поддержи видео лайком и напиши, что добавить в следующий список.</p>',
-		channelSlug: 'redgroup',
+		channelSlug: 'programmingplus',
 		isPublic: true,
 		tags: [
 			'игры',
@@ -31,7 +31,7 @@ export const REDGROUP_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🎬 Коротко и по делу: что смотреть, если хочется сильного сюжета, атмосферы или просто “выключить голову”.</p><p>Разделил по настроению и длительности, чтобы проще было выбрать.</p>',
-		channelSlug: 'redgroup',
+		channelSlug: 'programmingplus',
 		isPublic: true,
 		tags: [
 			'кино',
@@ -51,7 +51,7 @@ export const REDGROUP_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🏠 Подборка полезных устройств для дома: что стоит своих денег, а что — маркетинг.</p><p>Разбираем сценарии использования, долговечность и “скрытую стоимость” владения.</p>',
-		channelSlug: 'redgroup',
+		channelSlug: 'programmingplus',
 		isPublic: true,
 		tags: [
 			'гаджеты',
@@ -71,7 +71,7 @@ export const REDGROUP_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🕯️ Как собрать атмосферу: свет, звук, напитки, плейлист и один хороший фильм/игра.</p><p>Никаких “идеальных” правил — только практичные идеи, которые работают.</p>',
-		channelSlug: 'redgroup',
+		channelSlug: 'programmingplus',
 		isPublic: true,
 		tags: [
 			'лайфстайл',
@@ -91,7 +91,7 @@ export const REDGROUP_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>📺 Личный опыт: как я сократил “инфошум” и начал получать больше удовольствия от фильмов, игр и музыки.</p><p>Пара простых правил отбора и список источников, которые не захламляют голову.</p>',
-		channelSlug: 'redgroup',
+		channelSlug: 'programmingplus',
 		isPublic: true,
 		tags: [
 			'контент',
@@ -110,7 +110,7 @@ export const REDGROUP_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🗓️ Составляю план прохождения на месяц: несколько игр разных жанров и одна “запасная” на вечер.</p><p>Критерии: время, настроение, сложность и желание возвращаться.</p>',
-		channelSlug: 'redgroup',
+		channelSlug: 'programmingplus',
 		isPublic: true,
 		tags: [
 			'игры',
@@ -130,7 +130,7 @@ export const REDGROUP_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🎥 Разбираем постановку, звук и ритм: как режиссура делает сцену запоминающейся.</p><p>Без спойлеров и с понятными примерами, чтобы можно было смотреть сразу после видео.</p>',
-		channelSlug: 'redgroup',
+		channelSlug: 'programmingplus',
 		isPublic: true,
 		tags: [
 			'кино',

@@ -3,20 +3,20 @@ import { Channel } from '@prisma/client'
 export const CHANNELS: Partial<Channel & { name: string }>[] = [
 	{
 		name: 'RED Group',
-		slug: 'redgroup',
+		slug: 'programmingplus',
 		description:
 			'Канал про игры, кинообзоры и полезные подборки для вечернего отдыха без лишнего шума.',
-		avatarUrl: '/uploads/avatars/redgroup.jpg',
-		bannerUrl: '/uploads/banners/redgroup.jpg',
+		avatarUrl: '/uploads/avatars/programmingplus.jpg',
+		bannerUrl: '/uploads/banners/programmingplus.jpg',
 		isVerified: true
 	},
 	{
 		name: 'RED Group +',
-		slug: 'redgroup-plus',
+		slug: 'programming-plus',
 		description:
 			'Расширенные выпуски: подробные обзоры, разборы фильмов/сцен, большие подборки и сетапы для дома.',
-		avatarUrl: '/uploads/avatars/redgroup-plus.jpg',
-		bannerUrl: '/uploads/banners/redgroup-plus.jpg'
+		avatarUrl: '/uploads/avatars/programming-plus.jpg',
+		bannerUrl: '/uploads/banners/programming-plus.jpg'
 	},
 	{
 		name: 'Hustle in Silence',

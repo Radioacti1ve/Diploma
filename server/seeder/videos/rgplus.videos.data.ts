@@ -10,7 +10,7 @@ export const REDGROUP_PLUS_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🪑 Разбираем сетап без фанатизма: что даёт максимум эффекта за разумные деньги.</p><p>Звук, освещение, посадка, кабель-менеджмент и мелочи, которые реально решают.</p>',
-		channelSlug: 'redgroup-plus',
+		channelSlug: 'programming-plus',
 		isPublic: true,
 		tags: [
 			'сетап',
@@ -31,7 +31,7 @@ export const REDGROUP_PLUS_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>💳 Сравниваем подписки и сценарии использования: кому что выгодно и где скрытые траты.</p><p>Как оптимизировать набор сервисов, чтобы было удобно и без “подписок-призраков”.</p>',
-		channelSlug: 'redgroup-plus',
+		channelSlug: 'programming-plus',
 		isPublic: true,
 		tags: [
 			'подписки',
@@ -51,7 +51,7 @@ export const REDGROUP_PLUS_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🗂️ Как навести порядок: списки просмотра, “хочу сыграть”, избранное и быстрый доступ.</p><p>Покажу простую структуру, которая держится месяцами без усилий.</p>',
-		channelSlug: 'redgroup-plus',
+		channelSlug: 'programming-plus',
 		isPublic: true,
 		tags: [
 			'организация',
@@ -70,7 +70,7 @@ export const REDGROUP_PLUS_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🎧 Глубокий разбор приёмов: монтажные склейки, паузы, фоли и музыкальные акценты.</p><p>Почему одни сцены “держат”, а другие — нет. Всё на понятных примерах, без спойлеров.</p>',
-		channelSlug: 'redgroup-plus',
+		channelSlug: 'programming-plus',
 		isPublic: true,
 		tags: [
 			'кино',
@@ -90,7 +90,7 @@ export const REDGROUP_PLUS_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>⏱️ Подборка игр, которые комфортно закрыть за выходные: темп, история, геймплей.</p><p>Разделил по настроению: “погрузиться”, “расслабиться”, “пощёлкать мозгами”.</p>',
-		channelSlug: 'redgroup-plus',
+		channelSlug: 'programming-plus',
 		isPublic: true,
 		tags: [
 			'игры',
@@ -109,7 +109,7 @@ export const REDGROUP_PLUS_VIDEOS = [
 		maxResolution: EnumVideoPlayerQuality['4K'],
 		description:
 			'<p>🖥️ Простыми словами про яркость, контраст, герцовку и HDR.</p><p>Как выбрать экран под свой сценарий и не переплатить за маркетинг.</p>',
-		channelSlug: 'redgroup-plus',
+		channelSlug: 'programming-plus',
 		isPublic: true,
 		tags: [
 			'монитор',
