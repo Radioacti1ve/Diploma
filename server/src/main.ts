@@ -14,7 +14,11 @@ async function bootstrap() {
 	await prismaService.enableShutdownHooks(app)
 
 	app.setGlobalPrefix('api', {
-		exclude: [{ path: 'verify-email', method: RequestMethod.GET }]
+		exclude: [
+			{ path: 'verify-email', method: RequestMethod.GET },
+			{ path: 'uploads', method: RequestMethod.GET },
+			{ path: 'uploads/(.*)', method: RequestMethod.GET }
+		]
 	})
 
 	app.useGlobalPipes(new ValidationPipe({ transform: true }))

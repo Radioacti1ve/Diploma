@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
+import { StorageService } from '@/storage/storage.service'
 import { EnumVideoPlayerQuality } from '@/video/dto/video.types'
 import { path as appRootPath } from 'app-root-path'
 import * as ffmpeg from 'fluent-ffmpeg'
@@ -11,16 +12,18 @@ import { IResolution, RESOLUTIONS } from './resolution.data'
 
 @Injectable()
 export class MediaService {
-	private readonly _outputDir = path.join(appRootPath, 'uploads')
+	private readonly _tempDir = path.join(appRootPath, 'uploads-temp')
 
 	private processingStatus: Map<string, number> = new Map()
+
+	constructor(private readonly storageService: StorageService) {}
 
 	async saveMedia(
 		files: IFile[],
 		folder = 'default'
 	): Promise<IMediaResponse[]> {
 		const folderLowerCase = folder.toLowerCase()
-		const uploadFolder = path.join(this._outputDir, folderLowerCase)
+		const uploadFolder = path.join(this._tempDir, folderLowerCase)
 		await ensureDir(uploadFolder)
 
 		const file = files[0]
@@ -37,6 +40,11 @@ export class MediaService {
 					file.buffer.byteLength
 				)
 			)
+			await this.storageService.saveFile(
+				filePath,
+				`${folderLowerCase}/${uniqueFileName}`,
+				file.mimetype
+			)
 
 			const { width: inputWidth, height: inputHeight } =
 				await this.getVideoResolution(filePath)
@@ -48,9 +56,11 @@ export class MediaService {
 			this.processVideo(filePath, uniqueFileName, folderLowerCase)
 				.then(() => {
 					this.processingStatus.set(uniqueFileName, 100)
+					return this.storageService.removeLocalTempFile(filePath)
 				})
 				.catch(err => {
 					this.processingStatus.set(uniqueFileName, -1)
+					void this.storageService.removeLocalTempFile(filePath)
 					console.error('Ошибка при обработке видео:', err)
 				})
 
@@ -70,6 +80,12 @@ export class MediaService {
 					file.buffer.byteLength
 				)
 			)
+			await this.storageService.saveFile(
+				filePath,
+				`${folderLowerCase}/${uniqueFileName}`,
+				file.mimetype
+			)
+			await this.storageService.removeLocalTempFile(filePath)
 
 			return [
 				{
@@ -117,6 +133,7 @@ export class MediaService {
 		} catch (err) {
 			this.processingStatus.set(fileName, -1)
 			console.error('Ошибка при обработке видео:', err)
+			throw err
 		}
 	}
 
@@ -152,7 +169,7 @@ export class MediaService {
 		totalResolutions: number,
 		currentResolutionIndex: number
 	): Promise<void> {
-		const outputDir = path.join(this._outputDir, folder, resolution.name)
+		const outputDir = path.join(this._tempDir, folder, resolution.name)
 		await ensureDir(outputDir)
 
 		const outputPath = path.join(outputDir, fileName)
@@ -171,7 +188,11 @@ export class MediaService {
 					this.processingStatus.set(fileName, overallProgress)
 				})
 				.on('end', () => {
-					resolve()
+					this.storageService
+						.saveFile(outputPath, `${folder}/${resolution.name}/${fileName}`)
+						.then(() => this.storageService.removeLocalTempFile(outputPath))
+						.then(() => resolve())
+						.catch(reject)
 				})
 				.on('error', err => {
 					reject(err)
