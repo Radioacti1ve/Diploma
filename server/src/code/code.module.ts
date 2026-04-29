@@ -8,6 +8,7 @@ import { MailModule } from '@/email/email.module'
 @Module({
 	imports: [RedisModule, MailModule],
 	providers: [CodeService],
-	controllers: [CodeController]
+	controllers: [CodeController],
+	exports: [CodeService]
 })
 export class CodeModule {}

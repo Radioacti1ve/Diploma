@@ -1,4 +1,6 @@
 import { PrismaService } from '@/prisma.service'
+import { CodeService } from '@/code/code.service'
+import { MailService } from '@/email/email.service'
 import {
 	BadRequestException,
 	Injectable,
@@ -11,7 +13,11 @@ import { Prisma } from '@prisma/client'
 
 @Injectable()
 export class UserService {
-	constructor(private readonly prisma: PrismaService) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly codeService: CodeService,
+		private readonly mailService: MailService
+	) {}
 
 	async byId(id: string) {
 		const user = await this.prisma.user.findUnique({
@@ -146,6 +152,53 @@ export class UserService {
 			}
 		})
 	}
+
+	async sendVerificationCode(id: string) {
+		const user = await this.prisma.user.findUnique({
+			where: { id }
+		})
+
+		if (!user) throw new NotFoundException('User not found')
+
+		if (!user.verificationToken) {
+			return true
+		}
+
+		const code = String(Math.floor(100000 + Math.random() * 900000))
+
+		await this.codeService.issue(user.email, 'register', code, 600)
+		await this.mailService.sendConfirmCode(user.email, code)
+
+		return true
+	}
+
+	async verifyEmailCode(id: string, code: string) {
+		if (!/^\d{6}$/.test(code)) {
+			throw new BadRequestException('Code must be 6 digits')
+		}
+
+		const user = await this.prisma.user.findUnique({
+			where: { id }
+		})
+
+		if (!user) throw new NotFoundException('User not found')
+
+		if (!user.verificationToken) {
+			return true
+		}
+
+		await this.codeService.verify(user.email, 'register', code)
+
+		await this.prisma.user.update({
+			where: { id },
+			data: {
+				verificationToken: null
+			}
+		})
+
+		return true
+	}
+
 	async getCount() {
 		return this.prisma.user.count()
 	}

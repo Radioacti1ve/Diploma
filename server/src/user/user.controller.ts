@@ -3,6 +3,7 @@ import {
 	Controller,
 	Get,
 	HttpCode,
+	Post,
 	Put,
 	UsePipes,
 	ValidationPipe
@@ -33,6 +34,23 @@ export class UserController {
 		@Body() dto: UpdateUserDto
 	) {
 		return this.userService.updateProfile(id, dto)
+	}
+
+	@Post('profile/send-verification-code')
+	@HttpCode(200)
+	@Auth()
+	async sendVerificationCode(@CurrentUser('id') id: string) {
+		return this.userService.sendVerificationCode(id)
+	}
+
+	@Post('profile/verify-email-code')
+	@HttpCode(200)
+	@Auth()
+	async verifyEmailCode(
+		@CurrentUser('id') id: string,
+		@Body('code') code: string
+	) {
+		return this.userService.verifyEmailCode(id, code)
 	}
 
 	@Put('profile/likes')

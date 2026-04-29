@@ -1,6 +1,5 @@
 import { PrismaService } from '@/prisma.service'
 import { UserModule } from '@/user/user.module'
-import { UserService } from '@/user/user.service'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
@@ -29,7 +28,6 @@ import { MailModule } from '@/email/email.module'
 		AuthService,
 		JwtStrategy,
 		PrismaService,
-		UserService,
 		RefreshTokenService
 	]
 })

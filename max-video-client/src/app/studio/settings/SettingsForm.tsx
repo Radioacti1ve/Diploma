@@ -1,6 +1,7 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
+import { X } from 'lucide-react'
 
 import { Button } from '@/ui/button/Button'
 import { Field } from '@/ui/field/Field'
@@ -19,7 +20,16 @@ export function SettingsForm() {
 		},
 		isLoading,
 		isProfileLoading,
-		onSubmit
+		onSubmit,
+		profile,
+		isVerifyModalOpen,
+		setIsVerifyModalOpen,
+		verificationCode,
+		setVerificationCode,
+		sendVerificationCode,
+		verifyEmailCode,
+		isSendingVerificationCode,
+		isVerifyingEmailCode
 	} = useSettings()
 
 	if (isProfileLoading) return <div>Loading...</div>
@@ -36,6 +46,22 @@ export function SettingsForm() {
 							error={errors.email?.message}
 							placeholder='Enter email:'
 						/>
+						{profile?.verificationToken && (
+							<div className='mb-5 rounded border border-primary/50 bg-primary/10 p-4'>
+								<div className='mb-1 font-semibold text-primary'>Email is not verified</div>
+								<p className='mb-4 text-sm text-gray-400'>
+									Send a 6-digit code to {profile.email} and confirm this email.
+								</p>
+								<Button
+									type='button'
+									variant='secondary'
+									isLoading={isSendingVerificationCode}
+									onClick={() => sendVerificationCode()}
+								>
+									Send code
+								</Button>
+							</div>
+						)}
 						<Field
 							label='Password'
 							type='password'
@@ -108,6 +134,56 @@ export function SettingsForm() {
 					</Button>
 				</div>
 			</form>
+
+			{isVerifyModalOpen && (
+				<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/60'>
+					<div className='relative w-full max-w-md rounded-lg bg-gray-800 p-6'>
+						<button
+							type='button'
+							className='absolute right-3 top-3 text-white'
+							title='Close a modal'
+							onClick={() => setIsVerifyModalOpen(false)}
+						>
+							<X />
+						</button>
+
+						<div className='mb-2 text-xl font-semibold'>Confirm email</div>
+						<p className='mb-5 text-sm text-gray-400'>
+							Enter the 6-digit code sent to {profile?.email}.
+						</p>
+
+						<input
+							value={verificationCode}
+							onChange={event =>
+								setVerificationCode(event.target.value.replace(/\D/g, '').slice(0, 6))
+							}
+							className='mb-5 w-full rounded border border-border bg-transparent px-4 py-3 text-center text-2xl tracking-[0.4em] outline-none focus:border-primary'
+							placeholder='000000'
+							inputMode='numeric'
+							autoComplete='one-time-code'
+						/>
+
+						<div className='flex flex-wrap items-center gap-3'>
+							<Button
+								type='button'
+								isLoading={isVerifyingEmailCode}
+								disabled={verificationCode.length !== 6}
+								onClick={() => verifyEmailCode()}
+							>
+								Confirm
+							</Button>
+							<Button
+								type='button'
+								variant='secondary'
+								isLoading={isSendingVerificationCode}
+								onClick={() => sendVerificationCode()}
+							>
+								Send again
+							</Button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

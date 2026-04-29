@@ -14,6 +14,14 @@ class UserService {
 		return instance.put<boolean>(`${this._USERS}/profile`, data)
 	}
 
+	sendVerificationCode() {
+		return instance.post<boolean>(`${this._USERS}/profile/send-verification-code`)
+	}
+
+	verifyEmailCode(code: string) {
+		return instance.post<boolean>(`${this._USERS}/profile/verify-email-code`, { code })
+	}
+
 	toggleLike(videoId: string) {
 		return instance.put(`${this._USERS}/profile/likes`, { videoId })
 	}
